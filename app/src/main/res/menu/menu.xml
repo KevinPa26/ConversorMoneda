@@ -5,13 +5,13 @@
     tools:context=".MainActivity"
     >
 
-    <item   android:id="@+id/euro"
+    <item   android:id="@+id/miEuros"
         android:title="Convertir a Euro"
         android:icon="@android:drawable/ic_media_previous"
         android:orderInCategory="1"
         app:showAsAction="always"
         />
-    <item   android:id="@+id/dolar"
+    <item   android:id="@+id/miDolar"
         android:title="Convertir a Dolar"
         android:icon="@android:drawable/ic_media_next"
         android:orderInCategory="2"

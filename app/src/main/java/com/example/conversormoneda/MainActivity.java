@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private int valorDolar = 1;
-    private int valorEuro= 2;
+    private int valorEuro= 1;
 
     private TextView tvOneDollar;
     private EditText etDolares;
@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCambiarValor;
     private RadioButton rbConvertirDolares;
     private RadioButton rbConvertirEuros;
+
+    private MenuItem conEuros;
+    private MenuItem conDolares;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +45,32 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.dolar){
+        if(id == R.id.miDolar){
             rbConvertirDolares.setChecked(true);
-            rbConvertirEuros.setChecked(false);
+            etEuros.setEnabled(true);
+            btnConvertir.setEnabled(true);
+            etDolares.setEnabled(false);
+            etDolares.setText("");
+            etAsignacionValor.setHint("Dolar " + valorDolar );
             return true;
+        }
+
+        if(id == R.id.miEuros){
+            rbConvertirEuros.setChecked(true);
+            etDolares.setEnabled(true);
+            btnConvertir.setEnabled(true);
+            etEuros.setEnabled(false);
+            etEuros.setText("");
+            etAsignacionValor.setHint("Euros " + valorEuro );
         }
         return true;
     }
+
 
     public void inicializar(){
         tvOneDollar = findViewById(R.id.tvOneDollar);
@@ -61,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         btnCambiarValor = findViewById(R.id.btnCambiarValor);
         rbConvertirDolares = findViewById(R.id.rbConvertirDolares);
         rbConvertirEuros = findViewById(R.id.rbConvertirEuros);
+        conDolares = findViewById(R.id.miDolar);
+        conEuros = findViewById(R.id.miEuros);
 
         etDolares.setEnabled(false);
         etEuros.setEnabled(false);
@@ -79,7 +101,12 @@ public class MainActivity extends AppCompatActivity {
         btnCambiarValor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                valorEuro = Integer.parseInt(etAsignacionValor.getText().toString());
+                if(rbConvertirDolares.isChecked()){
+                    valorDolar = Integer.parseInt(etAsignacionValor.getText().toString());
+                }
+                if (rbConvertirEuros.isChecked()){
+                    valorEuro = Integer.parseInt(etAsignacionValor.getText().toString());
+                }
             }
         });
 
@@ -90,8 +117,11 @@ public class MainActivity extends AppCompatActivity {
                 btnConvertir.setEnabled(true);
                 etDolares.setEnabled(false);
                 etDolares.setText("");
+                etAsignacionValor.setHint("Dolar " + valorDolar );
             }
         });
+
+
 
         rbConvertirEuros.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 btnConvertir.setEnabled(true);
                 etEuros.setEnabled(false);
                 etEuros.setText("");
+                etAsignacionValor.setHint("Euros " + valorEuro );
             }
         });
 
@@ -115,6 +146,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
